@@ -35,21 +35,21 @@ services:
       PS_INSTALL_AUTO: 0
       PS_DEV_MODE: 1
 
-    # volumes:
-    #   - ./data/prestashop:/var/www/html
     volumes:
-      - ./data/prestashop/app/config/parameters.php:/var/www/html/app/config/parameters.php
-      - ./data/prestashop/img:/var/www/html/img
-      - ./data/prestashop/upload:/var/www/html/upload
-      - ./data/prestashop/download:/var/www/html/download
-      - ./data/prestashop/modules:/var/www/html/modules
-      - ./data/prestashop/themes:/var/www/html/themes
-      - ./data/prestashop/translations:/var/www/html/translations
-      - ./data/prestashop/mails:/var/www/html/mails
-      - ./data/prestashop/override:/var/www/html/override
-      - ./data/prestashop/var:/var/www/html/var
-      - ./data/prestashop/admin758izbxnwpdlywdcpct:/var/www/html/admin758izbxnwpdlywdcpct
-      - ./data/prestashop/.htaccess:/var/www/html/.htaccess
+      - ./data/prestashop:/var/www/html
+    # volumes:
+    #   - ./data/prestashop/app/config/parameters.php:/var/www/html/app/config/parameters.php
+    #   - ./data/prestashop/img:/var/www/html/img
+    #   - ./data/prestashop/upload:/var/www/html/upload
+    #   - ./data/prestashop/download:/var/www/html/download
+    #   - ./data/prestashop/modules:/var/www/html/modules
+    #   - ./data/prestashop/themes:/var/www/html/themes
+    #   - ./data/prestashop/translations:/var/www/html/translations
+    #   - ./data/prestashop/mails:/var/www/html/mails
+    #   - ./data/prestashop/override:/var/www/html/override
+    #   - ./data/prestashop/var:/var/www/html/var
+    #   - ./data/prestashop/admin758izbxnwpdlywdcpct:/var/www/html/admin758izbxnwpdlywdcpct
+    #   - ./data/prestashop/.htaccess:/var/www/html/.htaccess
 
     command:
       - /bin/sh
