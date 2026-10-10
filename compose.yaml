@@ -1,0 +1,66 @@
+services:
+
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+
+    networks:
+      - prestashop
+
+  shop:
+    image: prestashop/prestashop:${PS_VERSION}
+    restart: unless-stopped
+
+    depends_on:
+      - db
+
+    ports:
+      - "${HTTP_PORT}:80"
+
+    environment:
+      DB_SERVER: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWD: ${DB_PASSWORD}
+
+      PS_INSTALL_AUTO: 0
+      PS_DEV_MODE: 1
+
+    # volumes:
+    #   - ./data/prestashop:/var/www/html
+    volumes:
+      - ./data/prestashop/app/config/parameters.php:/var/www/html/app/config/parameters.php
+      - ./data/prestashop/img:/var/www/html/img
+      - ./data/prestashop/upload:/var/www/html/upload
+      - ./data/prestashop/download:/var/www/html/download
+      - ./data/prestashop/modules:/var/www/html/modules
+      - ./data/prestashop/themes:/var/www/html/themes
+      - ./data/prestashop/translations:/var/www/html/translations
+      - ./data/prestashop/mails:/var/www/html/mails
+      - ./data/prestashop/override:/var/www/html/override
+      - ./data/prestashop/var:/var/www/html/var
+      - ./data/prestashop/admin758izbxnwpdlywdcpct:/var/www/html/admin758izbxnwpdlywdcpct
+      - ./data/prestashop/.htaccess:/var/www/html/.htaccess
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        rm -rf /var/www/html/install
+        exec /tmp/docker_run.sh
+
+
+    networks:
+      - prestashop
+
+networks:
+  prestashop:
